@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Goals</title>
-    <link rel="stylesheet" href="goals.css">
+    <link rel="stylesheet" href="/CSS/goals.css">
 </head>
 <body>
+    <nav class="navbar">
+        <h2 class="logo">CP Tracker</h2>
+        <div class="nav-links">
+            <h3 ><a href="/index.html">Home</a></h3>
+            <h3 ><a href="/Pages/dashboard.html">Dashboard</a></h3>
+            <h3 ><a href="/Pages/contests.html" >Contests</a></h3>
+            <h3 ><a href="/Pages/goals.html">Goals</a></h3>
+            <h3 ><a href="/Pages/resources.html">Resources</a></h3>
+            <h3 ><a href="/Pages/about.html">About</a></h3>
+        </div>
+        <button id="login">Get Started</button>
+    </nav>
     <header>
         <h1> My Goals</h1>
         <h2> Track and Manage your Coding Goals</h2>
@@ -21,15 +33,33 @@
             <li>
                 <input type="checkbox" class="goal-checkbox">
                 <div class="goal-statement">Reach Specialist on Codeforces  </div>
+                <button class="delete-btn">🗑</button>
             </li>
             <li>
                 <input type="checkbox" class="goal-checkbox">
                 <div class="goal-statement">Solve 300 Problems on LeetCode</div>
+                <button class="delete-btn">🗑</button>
             </li>
             <li>
                 <input type="checkbox" class="goal-checkbox">
                 <div class="goal-statement">Participate in 5 Codeforces Contests</div>
+                <button class="delete-btn">🗑</button>
             </li>
         </ul>
+    </section>
+    <div class="goal-stats">
+        <h3>Active Goals: <span id="active-count">0</span></h3>
+        <h3>Completed Goals: <span id="completed-count">0</span></h3>
+    </div>
+    <footer>
+    <h3>CP Tracker</h3>
+    <p>Track. Analyze. Improve.</p>
+    <div class="footer-links">
+        <a href="https://github.com/Namkar255" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/namkar-jindal-0879343a8/" target="_blank">LinkedIn</a>
+    </div>
+    <p>© 2026 CP Tracker. Built by Namkar Jindal.</p>
+</footer>
 </body>
+<script src="/JS/goals.js"></script>
 </html>
