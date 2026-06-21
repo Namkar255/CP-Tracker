@@ -17,14 +17,58 @@
             <h3 ><a href="/Pages/resources.html">Resources</a></h3>
             <h3 ><a href="/Pages/about.html">About</a></h3>
         </div>
-        <button id="login">Get Started</button>
+        <a href="/signup" id="login">
+            Get Started
+        </a>
     </nav>
-    <h1>Dashboard</h1>
-    <section class="stats">
-        <div class="stat-card">
-            <h2>1306</h2>
-            <p>Codeforces Rating</p>
+    <section class="dashboard-header">
+        <h1>Dashboard</h1>
+        <p>Track your coding journey and monitor your growth.</p>
+    </section>
+    <section class="cf-profile">
+        <h2>Codeforces Profile</h2>
+        <div class="cf-input">
+            <input
+                type="text"
+                id="cf-handle"
+                placeholder="Enter Codeforces Handle"
+            >
+            <button id="fetch-btn">
+                Fetch Profile
+            </button>
         </div>
+        <div class="cf-stats">
+            <div class="stat-card">
+                <h2 id="cf-rating">--</h2>
+                <p>Rating</p>
+            </div>
+            <div class="stat-card">
+                <h2 id="cf-rank">--</h2>
+                <p>Rank</p>
+            </div>
+            <div class="stat-card">
+                <h2 id="cf-max-rating">--</h2>
+                <p>Max Rating</p>
+            </div>
+            <div class="stat-card">
+                <h2 id="cf-max-rank">--</h2>
+                <p>Max Rank</p>
+            </div>
+            <div class="stat-card">
+                <h2 id="cf-contribution">--</h2>
+                <p>Contributions</p>
+            </div>
+            <div class="stat-card">
+                <h2 id="cf-friend-of-count">--</h2>
+                <p>Friend Count</p>
+            </div>
+            <div class="stat-card">
+                <img id="cf-avatar" src="https://via.placeholder.com/100" alt="Avatar">
+                <p>Avatar</p>
+            </div>
+        </div>
+    </section>
+    <section class="stats">
         <div class="stat-card">
             <h2>300</h2>
             <p>LeetCode Solved</p>
@@ -33,21 +77,32 @@
             <h2>800</h2>
             <p>AtCoder Rating</p>
         </div>
+        <div class="stat-card">
+            <h2>7 / 10</h2>
+            <p>Goals Completed</p>
+        </div>
     </section>
     <section class="progress">
-        <h2>Today's Goal Progress</h2>
+        <h2>Today's Progress</h2>
         <div class="progress-bar">
-            <div class="progress-fill"></div>
+            <div
+                class="progress-fill"
+                id="progress-fill">
+            </div>
         </div>
+        <p class="progress-text" id="progress-text">
+            0% Completed
+        </p>
     </section>
     <section class="activity">
         <h2>Recent Activity</h2>
-        <ul>
-            <li>Solved Two Sum</li>
-            <li>Participated in CF Round #1050</li>
-            <li>Solved DP Problem</li>
-            <li>Reached 300 LC Problems</li>
+        <ul id="activity-list">
         </ul>
+    </section>
+    <section class="contest-history">
+        <h2>Recent Contest History</h2>
+        <div id="contest-list">
+        </div>
     </section>
     <footer>
     <h3>CP Tracker</h3>
@@ -59,4 +114,5 @@
     <p>© 2026 CP Tracker. Built by Namkar Jindal.</p>
 </footer>
 </body>
+<script src="/Js/dashboard.js"></script>
 </html>

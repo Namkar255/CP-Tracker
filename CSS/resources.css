@@ -40,10 +40,11 @@ body{
     justify-self:end;
     background-color:#6d1de3;
     color:white;
-    border:none;
+    text-decoration:none;
     padding:12px 24px;
     border-radius:10px;
     cursor:pointer;
+    display:inline-block;
 }
 #login:hover{
     transform:translateY(-2px);

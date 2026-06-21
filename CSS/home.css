@@ -40,10 +40,12 @@ body{
     justify-self:end;
     background-color:#6d1de3;
     color:white;
-    border:none;
+    text-decoration:none;
     padding:12px 24px;
     border-radius:10px;
     cursor:pointer;
+    display:inline-block;
+    transition:0.3s;
 }
 #login:hover{
     transform:translateY(-2px);
@@ -77,6 +79,11 @@ body{
     display:flex;
     gap:20px;
     
+}
+.cta-button{
+    display:inline-block;
+    text-decoration:none;
+    transition:0.3s;
 }
 .cta-button:hover{
     transform:translateY(-2px);
@@ -133,6 +140,10 @@ body{
     border-radius:15px;
     padding:25px;
     text-align:left;
+    transition:0.3s;
+}
+.feature-card:hover{
+    transform:translateY(-5px);
 }
 .feature-card h4{
     margin-bottom:15px;
@@ -156,6 +167,10 @@ body{
     border-radius:15px;
     background-color:#0E1021;
     padding:30px;
+    transition:0.3s;
+}
+.stat-card:hover{
+    transform:translateY(-5px);
 }
 .stat-card h2{
     color:#6d1de3;
