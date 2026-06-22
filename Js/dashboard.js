@@ -124,14 +124,11 @@ async function loadDashboard(){
                 );
             }
         }
-
     }
     catch(error){
-
         console.log(error);
 
     }
-
 }
 const saveCFButton =
     document.getElementById(
@@ -155,16 +152,12 @@ async function loadSavedHandle(){
         await fetchCodeforcesProfile(
             data.cf_handle
         );
-
     }
     catch(error){
-
         console.log(error);
-
     }
 
 }
-
 saveCFButton.addEventListener(
     "click",
     async function(){
@@ -197,7 +190,6 @@ saveCFButton.addEventListener(
             );
         saveMessage.textContent =
             "✓ Handle saved successfully";
-
         setTimeout(() => {
             saveMessage.textContent = "";
         }, 3000);
