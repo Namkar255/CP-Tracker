@@ -10,20 +10,39 @@
     <nav class="navbar">
         <h2 class="logo">CP Tracker</h2>
         <div class="nav-links">
-            <h3 ><a href="/index.html">Home</a></h3>
-            <h3 ><a href="/Pages/dashboard.html">Dashboard</a></h3>
-            <h3 ><a href="/Pages/contests.html" >Contests</a></h3>
-            <h3 ><a href="/Pages/goals.html">Goals</a></h3>
-            <h3 ><a href="/Pages/resources.html">Resources</a></h3>
-            <h3 ><a href="/Pages/about.html">About</a></h3>
+            <h3 ><a href="/">Home</a></h3>
+            <h3 ><a href="/dashboard">Dashboard</a></h3>
+            <h3 ><a href="/contests" >Contests</a></h3>
+            <h3 ><a href="/goals">Goals</a></h3>
+            <h3 ><a href="/resources">Resources</a></h3>
+            <h3 ><a href="/about">About</a></h3>
         </div>
-        <a href="/signup" id="login">
-            Get Started
-        </a>
+        <div class="nav-actions">
+            <span id="username">
+                Loading...
+            </span>
+            <a href="/logout" id="logout">
+                Logout
+            </a>
+        </div>
     </nav>
     <section class="dashboard-header">
         <h1>Dashboard</h1>
         <p>Track your coding journey and monitor your growth.</p>
+    </section>
+    <section class="saved-handle">
+        <h2>My Codeforces Handle</h2>
+        <div class="cf-input">
+            <input
+                type="text"
+                id="saved-cf-handle"
+                placeholder="Enter your handle"
+            >
+            <button id="save-cf-handle">
+                Save Handle
+            </button>
+            <p id="save-message"></p>
+        </div>
     </section>
     <section class="cf-profile">
         <h2>Codeforces Profile</h2>
@@ -68,31 +87,38 @@
             </div>
         </div>
     </section>
-    <section class="stats">
-        <div class="stat-card">
-            <h2>300</h2>
-            <p>LeetCode Solved</p>
-        </div>
-        <div class="stat-card">
-            <h2>800</h2>
-            <p>AtCoder Rating</p>
-        </div>
-        <div class="stat-card">
-            <h2>7 / 10</h2>
-            <p>Goals Completed</p>
-        </div>
-    </section>
     <section class="progress">
-        <h2>Today's Progress</h2>
+        <h2>
+            Goal Completion Progress
+        </h2>
         <div class="progress-bar">
             <div
                 class="progress-fill"
-                id="progress-fill">
+                id="progress-fill"
+            >
             </div>
         </div>
-        <p class="progress-text" id="progress-text">
-            0% Completed
+        <p id="progress-text">
+            0%
         </p>
+    </section>
+    <section class="stats">
+
+        <div class="stat-card">
+            <h2 id="total-goals">0</h2>
+            <p>Total Goals</p>
+        </div>
+
+        <div class="stat-card">
+            <h2 id="completed-goals">0</h2>
+            <p>Completed Goals</p>
+        </div>
+
+        <div class="stat-card">
+            <h2 id="active-goals">0</h2>
+            <p>Active Goals</p>
+        </div>
+
     </section>
     <section class="activity">
         <h2>Recent Activity</h2>

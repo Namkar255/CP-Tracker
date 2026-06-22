@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/Namkar255/CP-Tracker#readme",
   "dependencies": {
-    "express": "^5.2.1"
+    "bcrypt": "^6.0.0",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "pg": "^8.22.0"
   }
 }

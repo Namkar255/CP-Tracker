@@ -50,6 +50,25 @@ body{
 #login:hover{
     transform:translateY(-2px);
 }
+.nav-actions{
+    justify-self:end;
+    display:flex;
+    gap:15px;
+    align-items:center;
+}
+
+#logout{
+    background-color:#6d1de3;
+    color:white;
+    text-decoration:none;
+    padding:12px 24px;
+    border-radius:10px;
+    transition:0.3s;
+}
+
+#logout:hover{
+    transform:translateY(-2px);
+}
 .about-hero{
     display:flex;
     justify-content:space-between;
@@ -64,7 +83,7 @@ body{
 
 .about-content h1{
     font-size:4.5rem;
-    color:#6d1de3;
+    color:white;
     margin-bottom:20px;
 }
 

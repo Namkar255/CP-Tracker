@@ -51,11 +51,47 @@ body{
 #login:hover{
     transform:translateY(-2px);
 }
+.nav-actions{
+    justify-self:end;
+    display:flex;
+    gap:15px;
+    align-items:center;
+}
+#username{
+    color:white;
+    font-weight:bold;
+    font-size:1rem;
+}
+#logout{
+    background-color:#6d1de3;
+    color:white;
+    text-decoration:none;
+    padding:12px 24px;
+    border-radius:10px;
+    transition:0.3s;
+}
+
+#logout:hover{
+    transform:translateY(-2px);
+}
+.saved-handle{
+    margin:40px 0;
+    text-align:center;
+}
 .dashboard-header{
     text-align:center;
     padding:50px 0;
 }
+.saved-handle h2{
+    margin-bottom: 20px;
+}
 
+#save-message{
+    margin-top:10px;
+    color:#6d1de3;
+    font-weight:bold;
+    min-height:20px;
+}
 .dashboard-header h1{
     font-size:4rem;
     color:#6d1de3;
@@ -143,31 +179,29 @@ body{
 }
 
 .progress{
-    width:90%;
-    margin:0 auto 50px;
-}
-
-.progress h2{
-    margin-bottom:20px;
+    margin-top:40px;
+    text-align:center;
 }
 
 .progress-bar{
-    width:100%;
+    width:80%;
     height:25px;
     background:#222;
+    margin:20px auto;
     border-radius:20px;
     overflow:hidden;
 }
 
 .progress-fill{
-    width:70%;
+    width:0%;
     height:100%;
     background:#6d1de3;
+    transition:0.4s;
 }
 
-.progress-text{
+#progress-text{
     margin-top:10px;
-    color:#b3b3b3;
+    font-size:1.1rem;
 }
 
 .activity{
