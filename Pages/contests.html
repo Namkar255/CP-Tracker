@@ -8,7 +8,10 @@
 </head>
 <body>
     <nav class="navbar">
-        <h2 class="logo">CP Tracker</h2>
+        <div class="logo">
+            <img src="/Assets/logo.png" alt="CP Tracker Logo">
+            <span>CP Tracker</span>
+        </div>
         <div class="nav-links">
             <h3 ><a href="/">Home</a></h3>
             <h3 ><a href="/dashboard">Dashboard</a></h3>
@@ -37,6 +40,11 @@
                 
         </div>
     </section>
+    <section class="saved-contests">
+        <h2>My Saved Contests</h2>
+        <div id="saved-contest-list">
+        </div>
+    </section>
     <footer>
     <h3>CP Tracker</h3>
     <p>Track. Analyze. Improve.</p>
@@ -48,4 +56,6 @@
 </footer>
 </body>
 <script src="/Js/contests.js"></script>
+<script src="/Js/navbar.js"></script>
+<script src="/Js/navbar-active.js"></script>
 </html>

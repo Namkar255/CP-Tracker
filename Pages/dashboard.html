@@ -8,7 +8,10 @@
 </head>
 <body>
     <nav class="navbar">
-        <h2 class="logo">CP Tracker</h2>
+        <div class="logo">
+            <img src="/Assets/logo.png" alt="CP Tracker Logo">
+            <span>CP Tracker</span>
+        </div>
         <div class="nav-links">
             <h3 ><a href="/">Home</a></h3>
             <h3 ><a href="/dashboard">Dashboard</a></h3>
@@ -87,6 +90,67 @@
             </div>
         </div>
     </section>
+    <section class="saved-handle">
+        <h2>My LeetCode Handle</h2>
+        <div class="cf-input">
+            <input
+                type="text"
+                id="saved-lc-handle"
+                placeholder="Enter LeetCode Username"
+            >
+            <button id="save-lc-handle">
+                Save Handle
+            </button>
+        </div>
+        <p id="lc-save-message"></p>
+    </section>
+    <section class="leetcode-profile-card">
+        <h2>LeetCode Profile</h2>
+        <div class="cf-stats">
+            <div class="stat-card">
+                <img
+                    id="lc-avatar"
+                    src="https://via.placeholder.com/100"
+                    alt="LeetCode Avatar"
+                >
+                <p>Avatar</p>
+            </div>
+            <div class="stat-card">
+                <h2 id="lc-username">--</h2>
+                <p>Username</p>
+            </div>
+            <div class="stat-card">
+                <h2 id="lc-ranking">--</h2>
+                <p>Ranking</p>
+            </div>
+            <div class="stat-card">
+                <h2 id="lc-country">--</h2>
+                <p>Country</p>
+            </div>
+        </div>
+
+    </section>
+    <section class="leetcode-profile">
+        <h2>LeetCode Stats</h2>
+        <div class="cf-stats">
+            <div class="stat-card">
+                <h2 id="lc-total">--</h2>
+                <p>Total Solved</p>
+            </div>
+            <div class="stat-card">
+                <h2 id="lc-easy">--</h2>
+                <p>Easy</p>
+            </div>
+            <div class="stat-card">
+                <h2 id="lc-medium">--</h2>
+                <p>Medium</p>
+            </div>
+            <div class="stat-card">
+                <h2 id="lc-hard">--</h2>
+                <p>Hard</p>
+            </div>
+        </div>
+    </section>
     <section class="progress">
         <h2>
             Goal Completion Progress
@@ -141,4 +205,5 @@
 </footer>
 </body>
 <script src="/Js/dashboard.js"></script>
+<script src="/Js/navbar-active.js"></script>
 </html>

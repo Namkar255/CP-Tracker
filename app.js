@@ -40,9 +40,21 @@ app.get("/goals", (req, res) => {
     );
 });
 app.get("/contests", (req, res) => {
-    res.sendFile(path.join(__dirname,"Pages","contests.html"));
+    if(!req.session.user){
+        return res.redirect("/login");
+    }
+    res.sendFile(
+        path.join(
+            __dirname,
+            "Pages",
+            "contests.html"
+        )
+    );
 });
 app.get("/resources", (req, res) => {
+    if(!req.session.user){
+        return res.redirect("/login");
+    }
     res.sendFile(path.join(__dirname,"Pages","resources.html"));
 });
 app.get("/about", (req, res) => {
@@ -53,6 +65,18 @@ app.get("/signup", (req, res) => {
 });
 app.get("/login", (req, res) => {
     res.sendFile(path.join(__dirname, "Pages", "login.html"));
+});
+app.get("/profile", (req, res) => {
+    if(!req.session.user){
+        return res.redirect("/login");
+    }
+    res.sendFile(
+        path.join(
+            __dirname,
+            "Pages",
+            "profile.html"
+        )
+    );
 });
 app.post("/api/goals", async (req, res) => {
     if(!req.session.user){
@@ -325,6 +349,84 @@ app.post("/api/cf-handle", async (req, res) => {
 
     }
 
+    
+});
+app.get("/api/leetcode-handle", async (req, res) => {
+
+    if(!req.session.user){
+        return res.status(401).json({
+            error: "Unauthorized"
+        });
+    }
+
+    try{
+
+        const result = await db.query(
+            `
+            SELECT leetcode_handle
+            FROM users
+            WHERE id = $1
+            `,
+            [req.session.user.id]
+        );
+
+        res.json({
+            leetcode_handle:
+                result.rows[0].leetcode_handle
+        });
+
+    }
+    catch(error){
+
+        console.log(error);
+
+        res.status(500).json({
+            error: "Server Error"
+        });
+
+    }
+
+});
+
+app.post("/api/leetcode-handle", async (req, res) => {
+
+    if(!req.session.user){
+        return res.status(401).json({
+            error: "Unauthorized"
+        });
+    }
+
+    const { leetcodeHandle } = req.body;
+
+    try{
+
+        await db.query(
+            `
+            UPDATE users
+            SET leetcode_handle = $1
+            WHERE id = $2
+            `,
+            [
+                leetcodeHandle,
+                req.session.user.id
+            ]
+        );
+
+        res.json({
+            success: true
+        });
+
+    }
+    catch(error){
+
+        console.log(error);
+
+        res.status(500).json({
+            error: "Server Error"
+        });
+
+    }
+
 });
 app.get("/api/user", (req, res) => {
     if(!req.session.user){
@@ -338,6 +440,134 @@ app.get("/api/user", (req, res) => {
     });
 
 });
+app.post("/api/contests/save", async (req, res) => {
+
+    if(!req.session.user){
+        return res.status(401).json({
+            error: "Unauthorized"
+        });
+    }
+
+    const {
+        contest_name,
+        platform,
+        contest_link,
+        contest_time
+    } = req.body;
+
+    try{
+
+        await db.query(
+            `
+            INSERT INTO saved_contests
+            (
+                user_id,
+                contest_name,
+                platform,
+                contest_link,
+                contest_time
+            )
+            VALUES($1,$2,$3,$4,$5)
+            `,
+            [
+                req.session.user.id,
+                contest_name,
+                platform,
+                contest_link,
+                contest_time
+            ]
+        );
+
+        res.json({
+            success: true
+        });
+
+    }
+    catch(error){
+
+        console.log(error);
+
+        res.status(500).json({
+            error: "Server Error"
+        });
+
+    }
+
+});
+app.get("/api/contests/saved", async (req, res) => {
+    if(!req.session.user){
+        return res.status(401).json({
+            error: "Unauthorized"
+        });
+    }
+    try{
+        const result =
+            await db.query(
+                `
+                SELECT *
+                FROM saved_contests
+                WHERE user_id = $1
+                ORDER BY contest_time
+                `,
+                [req.session.user.id]
+            );
+        res.json(
+            result.rows
+        );
+
+    }
+    catch(error){
+
+        console.log(error);
+
+        res.status(500).json({
+            error: "Server Error"
+        });
+
+    }
+
+});
+app.delete(
+    "/api/contests/:id",
+    async (req, res) => {
+
+        if(!req.session.user){
+            return res.status(401).json({
+                error: "Unauthorized"
+            });
+        }
+
+        try{
+
+            await db.query(
+                `
+                DELETE FROM saved_contests
+                WHERE id = $1
+                AND user_id = $2
+                `,
+                [
+                    req.params.id,
+                    req.session.user.id
+                ]
+            );
+
+            res.json({
+                success: true
+            });
+
+        }
+        catch(error){
+
+            console.log(error);
+
+            res.status(500).json({
+                error: "Server Error"
+            });
+
+        }
+
+    }
+);
 app.post("/signup", async (req, res) => {
     const {
         name,
@@ -421,7 +651,113 @@ app.get("/logout", (req, res) => {
 
 });
 
+app.get(
+    "/api/profile",
+    async (req, res) => {
 
+        if(!req.session.user){
+            return res.status(401).json({
+                error: "Unauthorized"
+            });
+        }
+
+        try{
+
+            const userResult =
+                await db.query(
+                    `
+                    SELECT
+                    name,
+                    email,
+                    cf_handle,
+                    leetcode_handle
+                    FROM users
+                    WHERE id = $1
+                    `,
+                    [
+                        req.session.user.id
+                    ]
+                );
+
+            const completedGoals =
+                await db.query(
+                    `
+                    SELECT COUNT(*)
+                    FROM goals
+                    WHERE user_id = $1
+                    AND completed = true
+                    `,
+                    [
+                        req.session.user.id
+                    ]
+                );
+
+            const activeGoals =
+                await db.query(
+                    `
+                    SELECT COUNT(*)
+                    FROM goals
+                    WHERE user_id = $1
+                    AND completed = false
+                    `,
+                    [
+                        req.session.user.id
+                    ]
+                );
+
+            const contests =
+                await db.query(
+                    `
+                    SELECT COUNT(*)
+                    FROM saved_contests
+                    WHERE user_id = $1
+                    `,
+                    [
+                        req.session.user.id
+                    ]
+                );
+
+            res.json({
+
+                ...userResult.rows[0],
+
+                completedGoals:
+                    completedGoals
+                    .rows[0]
+                    .count,
+
+                activeGoals:
+                    activeGoals
+                    .rows[0]
+                    .count,
+
+                savedContests:
+                    contests
+                    .rows[0]
+                    .count
+
+            });
+
+        }
+        catch(error){
+
+            console.log(error);
+
+            res.status(500).json({
+                error:
+                "Server Error"
+            });
+
+        }
+
+    }
+);
+app.get("/api/auth-status", (req, res) => {
+    res.json({
+        loggedIn: !!req.session.user
+    });
+
+});
 app.listen(3000, () => {
     console.log("Server running on port 3000");
 });

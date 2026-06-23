@@ -11,6 +11,7 @@ const contestList = document.getElementById("contest-list");
 const activityList = document.getElementById("activity-list");
 const progressFill = document.getElementById("progress-fill");
 const progressText = document.getElementById("progress-text");
+const saveLCButton =document.getElementById("save-lc-handle");
 
 
 async function fetchCodeforcesProfile(handle){
@@ -158,16 +159,8 @@ async function loadSavedHandle(){
     }
 
 }
-saveCFButton.addEventListener(
-    "click",
-    async function(){
-        const cfHandle =
-            document
-            .getElementById(
-                "saved-cf-handle"
-            )
-            .value
-            .trim();
+saveCFButton.addEventListener("click",async function(){
+        const cfHandle =document.getElementById("saved-cf-handle").value.trim();
         if(cfHandle === ""){
             return;
         }
@@ -188,8 +181,10 @@ saveCFButton.addEventListener(
             document.getElementById(
                 "save-message"
             );
-        saveMessage.textContent =
-            "✓ Handle saved successfully";
+        saveMessage.textContent ="✓ Handle saved successfully";
+        await fetchCodeforcesProfile(
+            cfHandle
+        );
         setTimeout(() => {
             saveMessage.textContent = "";
         }, 3000);
@@ -211,8 +206,126 @@ async function loadUser(){
     }
 
 }
+async function loadLeetCodeHandle(){
+    try{
+        const response = await fetch("/api/leetcode-handle");
+        const data = await response.json();
+        if(data.leetcode_handle){
+            document.getElementById("saved-lc-handle").value =data.leetcode_handle;
+            await fetchLeetCodeProfile(data.leetcode_handle);
+            await fetchLeetCodeStats(data.leetcode_handle);
+        }
 
+    }
+    catch(error){
+        console.log(error);
+    }
+
+}
+saveLCButton.addEventListener(
+    "click",
+    async function(){
+        const leetcodeHandle =document.getElementById("saved-lc-handle").value.trim();
+        if(leetcodeHandle === ""){
+            return;
+        }
+        await fetch(
+            "/api/leetcode-handle",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type":
+                    "application/json"
+                },
+                body: JSON.stringify({leetcodeHandle})
+            }
+        );
+        const message =
+            document.getElementById(
+                "lc-save-message"
+            );
+        message.textContent =
+            "✓ Handle saved successfully";
+        await fetchLeetCodeProfile(leetcodeHandle);
+        await fetchLeetCodeStats(leetcodeHandle);
+        setTimeout(() => {
+            message.textContent = "";
+        }, 3000);
+
+    }
+);
+async function fetchLeetCodeStats(handle){
+    try{
+        const response =
+            await fetch(
+                `https://alfa-leetcode-api.onrender.com/${handle}/solved`
+            );
+        const data =
+            await response.json();
+        console.log(data);
+        document.getElementById(
+            "lc-total"
+        ).textContent =
+            data.solvedProblem ?? "--";
+        document.getElementById(
+            "lc-easy"
+        ).textContent =
+            data.easySolved ?? "--";
+        document.getElementById(
+            "lc-medium"
+        ).textContent =
+            data.mediumSolved ?? "--";
+        document.getElementById(
+            "lc-hard"
+        ).textContent =
+            data.hardSolved ?? "--";
+    }
+    catch(error){
+        console.log(error);
+    }
+
+}
+async function fetchLeetCodeProfile(handle){
+
+    try{
+
+        const response =
+            await fetch(
+                `https://alfa-leetcode-api.onrender.com/${handle}`
+            );
+
+        const data =
+            await response.json();
+
+        document.getElementById(
+            "lc-username"
+        ).textContent =
+            handle;
+
+        document.getElementById(
+            "lc-ranking"
+        ).textContent =
+            data.ranking ?? "--";
+
+        document.getElementById(
+            "lc-country"
+        ).textContent =
+            "India";
+
+        document.getElementById(
+            "lc-avatar"
+        ).src =
+            "https://leetcode.com/favicon.ico";
+
+    }
+    catch(error){
+
+        console.log(error);
+
+    }
+
+}
+loadLeetCodeHandle();
 loadUser();
 loadSavedHandle();
-
 loadDashboard();

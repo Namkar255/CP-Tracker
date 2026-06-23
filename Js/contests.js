@@ -1,4 +1,5 @@
 const contestList = document.getElementById("contest-list");
+const savedContestList =document.getElementById("saved-contest-list");
 
 async function loadContests() {
     try {
@@ -46,8 +47,23 @@ async function loadContests() {
                     <p class="upcoming">
                         Upcoming in ${remainingTime} days
                     </p>
+                    <button class="save-btn">
+                        Save Contest
+                    </button>
                 </div>
             `;
+            const saveButton =
+                card.querySelector(
+                    ".save-btn"
+                );
+            saveButton.addEventListener(
+                "click",
+                function(){
+                    saveContest(
+                        contest
+                    );
+                }
+            );
             contestList.appendChild(card);
         }
     }
@@ -57,4 +73,131 @@ async function loadContests() {
     }
 
 }
+async function saveContest(
+    contest
+){
+    try{
+        await fetch(
+            "/api/contests/save",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":
+                    "application/json"
+                },
+
+                body:JSON.stringify({
+                    contest_name:
+                        contest.name,
+
+                    platform:
+                        "Codeforces",
+
+                    contest_link:
+                        "https://codeforces.com/contests",
+
+                    contest_time:
+                        contest.startTimeSeconds
+                })
+            }
+        );
+        loadSavedContests();
+    }
+    catch(error){
+
+        console.log(error);
+
+    }
+
+}
+async function loadSavedContests(){
+
+    try{
+
+        const response =
+            await fetch(
+                "/api/contests/saved"
+            );
+
+        const contests =
+            await response.json();
+
+        savedContestList.innerHTML = "";
+
+        for(
+            const contest
+            of contests
+        ){
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.classList.add(
+                "contest-card"
+            );
+
+            const startTime =
+                new Date(
+                    contest.contest_time
+                    * 1000
+                ).toLocaleString();
+
+            card.innerHTML = `
+                <h3>
+                    ${contest.contest_name}
+                </h3>
+
+                <p>
+                    ${contest.platform}
+                </p>
+
+                <p>
+                    ${startTime}
+                </p>
+
+                <button
+                    class="delete-contest-btn"
+                >
+                    Remove
+                </button>
+            `;
+
+            const deleteButton =
+                card.querySelector(
+                    ".delete-contest-btn"
+                );
+
+            deleteButton.addEventListener(
+                "click",
+                async function(){
+
+                    await fetch(
+                        `/api/contests/${contest.id}`,
+                        {
+                            method:"DELETE"
+                        }
+                    );
+
+                    loadSavedContests();
+
+                }
+            );
+
+            savedContestList.appendChild(
+                card
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.log(error);
+
+    }
+
+}
 loadContests();
+loadSavedContests();

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet"
+          href="/CSS/profile.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <h2 class="logo">CP Tracker</h2>
+
+        <div class="nav-links">
+            <h3><a href="/">Home</a></h3>
+            <h3><a href="/dashboard">Dashboard</a></h3>
+            <h3><a href="/contests">Contests</a></h3>
+            <h3><a href="/goals">Goals</a></h3>
+            <h3><a href="/profile">Profile</a></h3>
+        </div>
+
+        <div class="nav-actions">
+            <a href="/logout"
+               id="logout">
+                Logout
+            </a>
+        </div>
+    </nav>
+
+    <section class="profile">
+
+        <h1>My Profile</h1>
+
+        <div class="profile-card">
+
+            <h2 id="profile-name">
+                Loading...
+            </h2>
+
+            <p id="profile-email"></p>
+
+            <hr>
+
+            <p>
+                <strong>
+                    Codeforces:
+                </strong>
+
+                <span id="profile-cf">
+                    --
+                </span>
+            </p>
+
+            <p>
+                <strong>
+                    LeetCode:
+                </strong>
+
+                <span id="profile-lc">
+                    --
+                </span>
+            </p>
+
+            <p>
+                <strong>
+                    Completed Goals:
+                </strong>
+
+                <span id="profile-completed">
+                    0
+                </span>
+            </p>
+
+            <p>
+                <strong>
+                    Active Goals:
+                </strong>
+
+                <span id="profile-active">
+                    0
+                </span>
+            </p>
+
+            <p>
+                <strong>
+                    Saved Contests:
+                </strong>
+
+                <span id="profile-contests">
+                    0
+                </span>
+            </p>
+
+        </div>
+
+    </section>
+
+    
+
+</body>
+<script src="/Js/profile.js"></script>
+<script src="/Js/navbar-active.js"></script>
+</html>

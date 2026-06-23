@@ -17,7 +17,16 @@ body{
     padding:22px 60px;
 }
 .logo{
+    display:flex;
+    align-items:center;
+    gap:15px;
     font-size:2rem;
+    font-weight:bold;
+}
+
+.logo img{
+    width:40px;
+    height:40px;
 }
 .nav-links {
     display:flex;
@@ -228,4 +237,61 @@ footer p{
 .footer-links a:hover{
     color:#6d1de3;
     transform:translateY(-2px);
+}
+
+@media (max-width:768px){
+
+    .navbar{
+        grid-template-columns:1fr;
+        text-align:center;
+        gap:15px;
+        padding:20px;
+    }
+
+    .nav-links{
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:15px;
+    }
+
+    .nav-actions{
+        justify-self:center;
+    }
+
+    .goal-input{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .goal-input input{
+        width:90%;
+    }
+
+    .goal-input button{
+        width:90%;
+    }
+
+    .goal-container{
+        width:95%;
+    }
+
+    li{
+        flex-wrap:wrap;
+        gap:10px;
+    }
+
+}
+.nav-links a.active{
+    color:#6d1de3;
+    position:relative;
+}
+
+.nav-links a.active::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-5px;
+    width:100%;
+    height:2px;
+    background:#6d1de3;
 }
