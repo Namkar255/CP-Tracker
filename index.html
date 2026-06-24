@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/CSS/home.css">
 </head>
 <body>
+    <div id="cursor-glow"></div>
     <nav class="navbar">
         <div class="logo">
             <img src="/Assets/logo.png" alt="CP Tracker Logo">
@@ -26,6 +27,9 @@
         </div>
     </nav>
     <section class="hero">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
         <div class="hero-content">
             <p id="hero-1">Track. Analyze. Improve.</p>
             <h1>
@@ -92,16 +96,16 @@
     </section>
     <section class="stats">
         <div class="stat-card">
-            <h2>500+</h2>
+            <h2 class="counter" data-target="500">0</h2>
             <p>Problems Solved</p>
         </div>
         <div class="stat-card">
-            <h2>100+</h2>
-            <p>Contests Tracked</p>
+            <h2 class="counter" data-target="100">0</h2>
+            <p>Active Users</p>
         </div>
         <div class="stat-card">
-            <h2>50+</h2>
-            <p>Active Users</p>
+            <h2 class="counter" data-target="50">0</h2>
+            <p>Contests Tracked</p>
         </div>
     </section>
     <footer>
@@ -116,4 +120,7 @@
 </body>
 <script src="/Js/navbar.js"></script>
 <script src="/Js/navbar-active.js"></script>
+<script src="Js/index.js">  </script>
+<script src="/Js/mouse-glow.js"></script>
+<script src="/Js/tilt-cards.js"></script>
 </html>

@@ -4,6 +4,9 @@ import { fileURLToPath } from "url";
 import db from "./db.js";
 import bcrypt from "bcrypt";
 import session from "express-session";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -579,26 +582,58 @@ app.post("/signup", async (req, res) => {
         return res.send(
             "Passwords do not match"
         );
+
+    }
+    const emailRegex =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if(!emailRegex.test(email)){
+        return res.send(
+            "Invalid email format"
+        );
+
+    }
+    const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+    if(!passwordRegex.test(password)){
+        return res.send(
+            "Password must contain at least 8 characters, 1 uppercase letter, 1 lowercase letter and 1 number"
+        );
     }
     try{
         const hashedPassword =
-        await bcrypt.hash(password, 10);
+            await bcrypt.hash(
+                password,
+                10
+            );
+
         await db.query(
             `
             INSERT INTO users
             (name,email,password)
             VALUES($1,$2,$3)
             `,
-            [name,email,hashedPassword]
+            [
+                name,
+                email,
+                hashedPassword
+            ]
         );
+
         res.redirect("/login");
+
     }
     catch(error){
+
         console.log(error);
+
         res.send(
             "User already exists"
         );
+
     }
+
 });
 
 app.post("/login", async (req, res) => {
@@ -758,6 +793,63 @@ app.get("/api/auth-status", (req, res) => {
     });
 
 });
+app.put(
+    "/api/profile",
+    async (req, res) => {
+
+        if(!req.session.user){
+
+            return res.status(401).json({
+                error: "Unauthorized"
+            });
+
+        }
+
+        const {
+            name,
+            email
+        } = req.body;
+
+        try{
+
+            await db.query(
+                `
+                UPDATE users
+                SET
+                name = $1,
+                email = $2
+                WHERE id = $3
+                `,
+                [
+                    name,
+                    email,
+                    req.session.user.id
+                ]
+            );
+
+            req.session.user.name =
+                name;
+
+            req.session.user.email =
+                email;
+
+            res.json({
+                success:true
+            });
+
+        }
+        catch(error){
+
+            console.log(error);
+
+            res.status(500).json({
+                error:"Server Error"
+            });
+
+        }
+
+    }
+);
 app.listen(3000, () => {
     console.log("Server running on port 3000");
 });

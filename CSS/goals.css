@@ -295,3 +295,48 @@ footer p{
     height:2px;
     background:#6d1de3;
 }
+.nav-links a{
+    position:relative;
+}
+
+.nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-5px;
+    width:0;
+    height:2px;
+    background:#6d1de3;
+    transition:0.3s;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+#cursor-glow{
+
+    position:fixed;
+
+    width:250px;
+    height:250px;
+
+    border-radius:50%;
+
+    background:rgba(109,29,227,0.18);
+
+    filter:blur(80px);
+
+    pointer-events:none;
+
+    z-index:0;
+
+    transform:translate(-50%,-50%);
+
+    transition:
+        left 0.08s linear,
+        top 0.08s linear;
+}
+.input-section.goals-section,.goal-stats{
+    position:relative;
+    z-index:1;
+}

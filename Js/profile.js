@@ -44,6 +44,15 @@ async function loadProfile(){
             "profile-contests"
         ).textContent =
             data.savedContests;
+        document.getElementById(
+            "edit-name"
+        ).value =
+            data.name;
+
+        document.getElementById(
+            "edit-email"
+        ).value =
+            data.email;
 
     }
     catch(error){
@@ -53,5 +62,65 @@ async function loadProfile(){
     }
 
 }
+const updateButton =
+    document.getElementById(
+        "update-profile"
+    );
 
+updateButton.addEventListener(
+    "click",
+    async function(){
+
+        const name =
+            document
+            .getElementById(
+                "edit-name"
+            )
+            .value
+            .trim();
+
+        const email =
+            document
+            .getElementById(
+                "edit-email"
+            )
+            .value
+            .trim();
+
+        const response =
+            await fetch(
+                "/api/profile",
+                {
+                    method:"PUT",
+                    headers:{
+                        "Content-Type":
+                        "application/json"
+                    },
+                    body:JSON.stringify({
+                        name,
+                        email
+                    })
+                }
+            );
+
+        const message =
+            document.getElementById(
+                "profile-message"
+            );
+
+        if(response.ok){
+
+            message.textContent =
+                "✓ Profile Updated";
+
+        }
+        else{
+
+            message.textContent =
+                "Failed To Update";
+
+        }
+
+    }
+);
 loadProfile();

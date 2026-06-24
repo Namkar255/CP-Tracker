@@ -153,6 +153,13 @@ async function loadSavedHandle(){
         await fetchCodeforcesProfile(
             data.cf_handle
         );
+        await fetchCodeforcesProfile(
+            data.cf_handle
+        );
+
+        await loadContestHistory(
+            data.cf_handle
+);
     }
     catch(error){
         console.log(error);
@@ -325,6 +332,158 @@ async function fetchLeetCodeProfile(handle){
     }
 
 }
+const savedContestsList =
+    document.getElementById(
+        "saved-contests-list"
+    );
+
+async function loadSavedContests(){
+
+    try{
+
+        const response =
+            await fetch(
+                "/api/contests/saved"
+            );
+
+        const contests =
+            await response.json();
+
+        savedContestsList.innerHTML = "";
+
+        if(contests.length === 0){
+
+            savedContestsList.innerHTML =
+                "<p>No saved contests yet.</p>";
+
+            return;
+        }
+
+        for(const contest of contests){
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.classList.add(
+                "saved-contest-card"
+            );
+
+            card.innerHTML = `
+                <h3>
+                    ${contest.contest_name}
+                </h3>
+
+                <p>
+                    ${contest.platform}
+                </p>
+
+                <p>
+                    ${new Date(
+                        contest.contest_time
+                    ).toLocaleString()}
+                </p>
+
+                <a
+                    href="${contest.contest_link}"
+                    target="_blank"
+                >
+                    Open Contest
+                </a>
+            `;
+
+            savedContestsList.appendChild(
+                card
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.log(error);
+
+    }
+
+}
+async function loadContestHistory(handle){
+
+    try{
+
+        const response =
+            await fetch(
+                `https://codeforces.com/api/user.rating?handle=${handle}`
+            );
+
+        const data =
+            await response.json();
+
+        const contests =
+            data.result.slice(-5).reverse();
+
+        contestList.innerHTML = "";
+
+        if(contests.length === 0){
+
+            contestList.innerHTML =
+                "<p>No contest history found</p>";
+
+            return;
+
+        }
+
+        for(const contest of contests){
+
+            const card =
+                document.createElement("div");
+            const change =
+                contest.newRating -
+                contest.oldRating;
+            const color =
+                change >= 0
+                ? "limegreen"
+                : "red";
+
+            card.classList.add(
+                "contest-card"
+            );
+
+            card.innerHTML = `
+                <h3>${contest.contestName}</h3>
+
+                <p>
+                    Rank:
+                    ${contest.rank}
+                </p>
+
+                <p>
+                    Rating:
+                    ${contest.newRating}
+                </p>
+
+                <p style="color:${color};font-weight:bold;">
+                    Change:
+                    ${change > 0 ? "+" : ""}${change}
+                </p>
+            `;
+
+            contestList.appendChild(
+                card
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.log(error);
+
+    }
+
+}
+
+loadSavedContests();
 loadLeetCodeHandle();
 loadUser();
 loadSavedHandle();

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/CSS\dashboard.css">
 </head>
 <body>
+    <div id="cursor-glow"></div>
     <nav class="navbar">
         <div class="logo">
             <img src="/Assets/logo.png" alt="CP Tracker Logo">
@@ -33,7 +34,7 @@
         <h1>Dashboard</h1>
         <p>Track your coding journey and monitor your growth.</p>
     </section>
-    <section class="saved-handle">
+    <section class="saved-handle reveal">
         <h2>My Codeforces Handle</h2>
         <div class="cf-input">
             <input
@@ -47,7 +48,7 @@
             <p id="save-message"></p>
         </div>
     </section>
-    <section class="cf-profile">
+    <section class="cf-profile reveal">
         <h2>Codeforces Profile</h2>
         <div class="cf-input">
             <input
@@ -90,7 +91,7 @@
             </div>
         </div>
     </section>
-    <section class="saved-handle">
+    <section class="saved-handle reveal">
         <h2>My LeetCode Handle</h2>
         <div class="cf-input">
             <input
@@ -104,7 +105,7 @@
         </div>
         <p id="lc-save-message"></p>
     </section>
-    <section class="leetcode-profile-card">
+    <section class="leetcode-profile-card reveal">
         <h2>LeetCode Profile</h2>
         <div class="cf-stats">
             <div class="stat-card">
@@ -130,7 +131,7 @@
         </div>
 
     </section>
-    <section class="leetcode-profile">
+    <section class="leetcode-profile reveal">
         <h2>LeetCode Stats</h2>
         <div class="cf-stats">
             <div class="stat-card">
@@ -151,7 +152,7 @@
             </div>
         </div>
     </section>
-    <section class="progress">
+    <section class="progress reveal">
         <h2>
             Goal Completion Progress
         </h2>
@@ -166,7 +167,7 @@
             0%
         </p>
     </section>
-    <section class="stats">
+    <section class="stats reveal">
 
         <div class="stat-card">
             <h2 id="total-goals">0</h2>
@@ -184,14 +185,19 @@
         </div>
 
     </section>
-    <section class="activity">
+    <section class="activity reveal">
         <h2>Recent Activity</h2>
         <ul id="activity-list">
         </ul>
     </section>
-    <section class="contest-history">
+    <section class="contest-history reveal">
         <h2>Recent Contest History</h2>
         <div id="contest-list">
+        </div>
+    </section>
+    <section class="saved-contests reveal">
+        <h2>Saved Contests</h2>
+        <div id="saved-contests-list">
         </div>
     </section>
     <footer>
@@ -206,4 +212,6 @@
 </body>
 <script src="/Js/dashboard.js"></script>
 <script src="/Js/navbar-active.js"></script>
+<script src="/Js/reveal.js"></script>
+<script src="/Js/mouse-glow.js"></script>
 </html>
