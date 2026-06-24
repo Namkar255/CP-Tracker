@@ -16,7 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
 app.use(
     session({
-        secret: "cp_tracker_secret",
+        secret:
+            process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false
     })
@@ -850,6 +851,10 @@ app.put(
 
     }
 );
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
+const PORT =
+    process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(
+        `Server running on port ${PORT}`
+    );
 });
